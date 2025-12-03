@@ -29,7 +29,7 @@ Please download the training and testing datasets from [Link] before proceeding.
 # Set your environment variables
 export BASE_IMAGE_PATH=${YOUR_BASE_IMG_PATH}
 export OUTPUT_DIR_PATH=${YOUR_DATA_DIR}
-export VAL_DIR_PATH=${VAL_DIR_PATH}
+export VAL_DIR=${YOUR_VAL_DIR}
 export TRAIN_JSON=${QWEN3_8B_GROUNDING_TRAIN_JSON}
 
 # Run preprocessing scripts
