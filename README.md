@@ -64,7 +64,7 @@ export MODEL_PATH=${YOUR_MODEL_PATH}
 export DATA_JSON=${DATA_JSON}
 export OUTPUT_DIR=${YOUR_OUTPUT_DIR}
 
-bash scripts/vllm_infer.sh
+bash scripts/sglang_infer.sh
 ```
 
 ---

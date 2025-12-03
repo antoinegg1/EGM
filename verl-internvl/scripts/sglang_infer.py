@@ -89,7 +89,7 @@ def compute_iou(boxA, boxB):
 
 async def call_one(client: AsyncOpenAI, model: str, rec: Dict[str, Any], max_tokens: int) -> Dict[str, Any]:
     base_image_dir = os.getenv("BASE_IMAGE_DIR")
-    rec_path = rec["image"].lstrip("/")
+    rec_path = rec["image"].replace("data","").lstrip("/")
     path = os.path.join(base_image_dir, rec_path)
     with Image.open(path) as img:
         w, h = img.size
@@ -102,7 +102,6 @@ async def call_one(client: AsyncOpenAI, model: str, rec: Dict[str, Any], max_tok
         {"type": "image_url", "image_url": {"url": to_data_url(path), "detail": "high"}},
         {"type": "text", "text": prompt},
     ]
-
     t0 = time.perf_counter()
     resp = await client.chat.completions.create(
         model=model,
@@ -267,13 +266,13 @@ async def main_async(args):
     print(f"Finish: Output saved to {args.output_dir}")
 
 def parse_args():
-    ap = argparse.ArgumentParser("Async concurrent VLM inference via vLLM (OpenAI-compatible)")
+    ap = argparse.ArgumentParser("Async concurrent VLM inference via SGLang")
     ap.add_argument("--data_json", required=True, help="COCO2014 train style JSON file path")
-    ap.add_argument("--endpoint", default="http://127.0.0.1:8000", help="vLLM OpenAI service address (excluding /v1)")
-    ap.add_argument("--model", required=True, help="Model name loaded on the vLLM server")
+    ap.add_argument("--endpoint", default="http://127.0.0.1:8000", help="SGLang OpenAI service address (excluding /v1)")
+    ap.add_argument("--model", required=True, help="Model name loaded on the SGLang server")
     ap.add_argument("--output_dir", required=True)
     ap.add_argument("--max_tokens", type=int, default=1024)
-    ap.add_argument("--concurrency", type=int, default=128)
+    ap.add_argument("--concurrency", type=int, default=64)
     ap.add_argument("--prompt_template", type=str, required=True, help="grounding|amodal|qwen3")
     ap.add_argument("--box_remap", type=str, required=True, help="keep|scale|inverse")
     return ap.parse_args()
