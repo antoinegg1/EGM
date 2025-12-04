@@ -131,5 +131,5 @@ if __name__ == "__main__":
     )
     print(f"[grounding preprocess] train samples (final): {ds_train.num_rows}")
 
-    ds_train.to_parquet(output_dir/f"train_grounding.parquet")
-    print(f"[grounding preprocess] wrote {output_dir/f'train_grounding.parquet'}")
+    ds_train.to_parquet(os.path.join(output_dir, "train_grounding.parquet"))
+    print(f"[grounding preprocess] wrote {os.path.join(output_dir, 'train_grounding.parquet')}")

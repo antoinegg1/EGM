@@ -88,7 +88,7 @@ def compute_iou(boxA, boxB):
     return inter_area / denom
 
 async def call_one(client: AsyncOpenAI, model: str, rec: Dict[str, Any], max_tokens: int) -> Dict[str, Any]:
-    base_image_dir = os.getenv("BASE_IMAGE_DIR")
+    base_image_dir = os.getenv("BASE_IMG_DIR")
     rec_path = rec["image"].lstrip("/")
     path = os.path.join(base_image_dir, rec_path)
     with Image.open(path) as img:

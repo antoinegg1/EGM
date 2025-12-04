@@ -16,7 +16,7 @@ VALID_FILES=(
 )
 
 python examples/data_preprocess/grounding_val.py \
-  --input_dir "${INPUT_DIR}" \
+  --input_dir "${VAL_DIR}" \
   --output_dir "${OUTPUT_DIR}" \
   --test_files "${VALID_FILES[@]}" \
   --format qwen \

@@ -88,8 +88,8 @@ def compute_iou(boxA, boxB):
     return inter_area / denom
 
 async def call_one(client: AsyncOpenAI, model: str, rec: Dict[str, Any], max_tokens: int) -> Dict[str, Any]:
-    base_image_dir = os.getenv("BASE_IMAGE_DIR")
-    rec_path = rec["image"].replace("data","").lstrip("/")
+    base_image_dir = os.getenv("BASE_IMG_DIR")
+    rec_path = rec["image"].lstrip("/")
     path = os.path.join(base_image_dir, rec_path)
     with Image.open(path) as img:
         w, h = img.size
@@ -213,7 +213,7 @@ async def main_async(args):
 
     generations = [None] * len(ds); scaled_bbox = [None] * len(ds); iou = [None] * len(ds)
     all_lat = []; all_tokens = []
-    pbar = tqdm(total=len(tasks), desc="vLLM async infer (no chunk)")
+    pbar = tqdm(total=len(tasks), desc="SGLang async infer (no chunk)")
     for coro in asyncio.as_completed(tasks):
         idx, out = await coro
         generations[idx] = out.get("generation")
